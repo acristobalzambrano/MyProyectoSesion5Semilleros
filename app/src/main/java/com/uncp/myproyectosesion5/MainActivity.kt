@@ -3,8 +3,10 @@ package com.uncp.myproyectosesion5
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -14,31 +16,33 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.uncp.myproyectosesion5.ui.theme.CustomTheme
 
 class MainActivity : ComponentActivity() {
-    private val myName = "Antony"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CustomTheme {
-                MainScreen(myName)
+                MainScreen()
             }
         }
     }
 }
 
 @Composable
-fun MainScreen(myName: String) {
+fun MainScreen() {
     Column {
-        Greeting(myName)
+        Greeting()
         Operation()
     }
 }
 
 @Composable
-fun Greeting(name: String) {
+fun Greeting() {
     var text by remember {
         mutableStateOf("")
     }
@@ -74,7 +78,7 @@ fun Operation() {
     var number2 by remember {
         mutableStateOf("")
     }
-    var respuesta by remember {
+    var response by remember {
         mutableIntStateOf(0)
     }
     Column {
@@ -107,15 +111,15 @@ fun Operation() {
             )
         }
         Button(onClick = {
-            respuesta = calcularDosNumeros(number1, number2)
+            response = calculateTwoNumbers(number1, number2)
         }) {
             Text(text = "Calcular")
         }
-        Text(text = "Respuesta: $respuesta")
+        Text(text = "Respuesta: $response")
     }
 }
 
-fun calcularDosNumeros(number1: String, number2: String): Int {
+fun calculateTwoNumbers(number1: String, number2: String): Int {
     return try {
         (number1.toInt() + number2.toInt()) * (number1.toInt() - number2.toInt())
     } catch (e: Exception) {
@@ -127,8 +131,7 @@ fun calcularDosNumeros(number1: String, number2: String): Int {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    val myName = "Antony"
     CustomTheme {
-        Greeting(myName)
+        Operation()
     }
 }
